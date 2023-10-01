@@ -2,8 +2,9 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "./ui/button";
+import SignInLink from "./SignInLink";
 
-const Navbar = () => {
+const Navbar = async () => {
   return (
     <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -23,15 +24,7 @@ const Navbar = () => {
             >
               Pricing
             </Link>
-            <Link
-              href="/signin"
-              className={buttonVariants({
-                variant: "ghost",
-                size: "sm",
-              })}
-            >
-              Sign in
-            </Link>
+            <SignInLink />
             <Link
               href="/register"
               className={buttonVariants({
