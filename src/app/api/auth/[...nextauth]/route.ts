@@ -15,6 +15,27 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    jwt: async ({ token, profile }) => {
+      const user = await prisma.user.findFirst({
+        where: {
+          email: profile?.email,
+        },
+      });
+
+      if (user) token.id = user.id;
+
+      return token;
+    },
+
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.id as string;
+      }
+
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

@@ -1,13 +1,14 @@
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import Dashboard from "@/components/Dashboard";
 
 const Page = async () => {
   const session = (await getServerSession(authOptions)) as Session;
 
-  if (!session || !session?.user) redirect("/auth-callback?origin=dashboard");
+  if (!session || !session?.user) redirect("/");
 
-  return <div>{session?.user.email}</div>;
+  return <Dashboard />;
 };
 
 export default Page;
