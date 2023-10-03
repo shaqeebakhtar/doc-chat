@@ -37,6 +37,8 @@ model File {
   userId       String?
   user         User?        @relation(fields: [userId], references: [id])
   messages     Message[]
+
+  @@unique([id, userId])
 }
 
 enum UploadStatus {
