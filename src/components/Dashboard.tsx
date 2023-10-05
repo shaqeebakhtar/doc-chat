@@ -16,14 +16,14 @@ const Dashboard = () => {
 
   const context = trpc.useContext();
 
-  const files = trpc.file.get.useQuery();
+  const files = trpc.file.getUserFiles.useQuery();
 
   const deleteFile = trpc.file.delete.useMutation({
     onMutate: ({ fileId }) => {
       setCurrentlyDeletingFile(fileId);
     },
     onSuccess: () => {
-      context.file.get.invalidate();
+      context.file.getUserFiles.invalidate();
     },
     onSettled: () => {
       setCurrentlyDeletingFile(null);

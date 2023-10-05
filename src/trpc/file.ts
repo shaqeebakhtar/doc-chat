@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 import * as z from "zod";
 
 export const fileRouter = router({
-  get: protectedProcedure.query(async ({ ctx }) => {
+  getUserFiles: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.user?.id;
 
     try {
@@ -18,6 +18,23 @@ export const fileRouter = router({
       throw new TRPCError({ message, code: "INTERNAL_SERVER_ERROR" });
     }
   }),
+
+  getFile: protectedProcedure
+    .input(z.object({ key: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.user.id;
+
+      const file = await prisma.file.findFirst({
+        where: {
+          userId,
+          key: input.key,
+        },
+      });
+
+      if (!file) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return file;
+    }),
 
   delete: protectedProcedure
     .input(z.object({ fileId: z.string() }))
