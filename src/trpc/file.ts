@@ -36,6 +36,23 @@ export const fileRouter = router({
       return file;
     }),
 
+  getUploadStatus: protectedProcedure
+    .input(z.object({ fileId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.user?.id;
+
+      const file = await prisma.file.findFirst({
+        where: {
+          id: input.fileId,
+          userId,
+        },
+      });
+
+      if (!file) return { status: "PENDING" as const };
+
+      return { status: file.uploadStatus };
+    }),
+
   delete: protectedProcedure
     .input(z.object({ fileId: z.string() }))
     .mutation(async ({ ctx, input }) => {
