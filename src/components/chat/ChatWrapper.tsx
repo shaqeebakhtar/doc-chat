@@ -7,6 +7,7 @@ import { trpc } from "@/app/_trpc/client";
 import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
+import { ChatContextProvider } from "./ChatContext";
 
 type ChatWrapperProps = {
   fileId: string;
@@ -68,7 +69,7 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
               <span className="font-medium">
                 {isSubscribed ? "Pro" : "Free"}
               </span>{" "}
-              plan supports up to{" "}
+              plan supports up to 4{" "}
               {/* {isSubscribed
                 ? PLANS.find((p) => p.name === "Pro")?.pagesPerPdf
                 : PLANS.find((p) => p.name === "Free")?.pagesPerPdf} */}{" "}
@@ -92,13 +93,15 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
     );
 
   return (
-    <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
-      <div className="flex-1 justify-between flex flex-col mb-28">
-        <Messages />
-      </div>
+    <ChatContextProvider fileId={fileId}>
+      <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
+        <div className="flex-1 justify-between flex flex-col mb-28">
+          <Messages />
+        </div>
 
-      <ChatInput />
-    </div>
+        <ChatInput />
+      </div>
+    </ChatContextProvider>
   );
 };
 
