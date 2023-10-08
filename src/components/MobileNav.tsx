@@ -16,7 +16,6 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
 
   useEffect(() => {
     if (isOpen) toggleOpen();
-    console.log(isOpen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
