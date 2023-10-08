@@ -5,6 +5,7 @@ import SignInLink from "./SignInLink";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import UserAccountNav from "./UserAccountNav";
+import MobileNav from "./MobileNav";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,8 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>DocChat</span>
           </Link>
+
+          <MobileNav isAuth={!!user} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
