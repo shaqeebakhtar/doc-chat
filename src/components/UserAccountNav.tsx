@@ -1,4 +1,3 @@
-// import { getUserSubscriptionPlan } from "@/lib/stripe";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +12,7 @@ import { Icons } from "./Icons";
 import Link from "next/link";
 import { Gem } from "lucide-react";
 import LogoutLink from "./LogoutLink";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
 interface UserAccountNavProps {
   email: string | undefined;
@@ -25,7 +25,7 @@ const UserAccountNav = async ({
   imageUrl,
   name,
 }: UserAccountNavProps) => {
-  //   const subscriptionPlan = await getUserSubscriptionPlan();
+  const subscriptionPlan = await getUserSubscriptionPlan();
 
   return (
     <DropdownMenu>
@@ -70,8 +70,7 @@ const UserAccountNav = async ({
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          {/* {subscriptionPlan?.isSubscribed ? ( */}
-          {true ? (
+          {subscriptionPlan?.isSubscribed ? (
             <Link href="/dashboard/billing">Manage Subscription</Link>
           ) : (
             <Link href="/pricing">

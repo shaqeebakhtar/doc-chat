@@ -8,6 +8,7 @@ import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
 import { ChatContextProvider } from "./ChatContext";
+import { PLANS } from "@/config/stripe";
 
 type ChatWrapperProps = {
   fileId: string;
@@ -69,10 +70,10 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
               <span className="font-medium">
                 {isSubscribed ? "Pro" : "Free"}
               </span>{" "}
-              plan supports up to 4{" "}
-              {/* {isSubscribed
+              plan supports up to{" "}
+              {isSubscribed
                 ? PLANS.find((p) => p.name === "Pro")?.pagesPerPdf
-                : PLANS.find((p) => p.name === "Free")?.pagesPerPdf} */}{" "}
+                : PLANS.find((p) => p.name === "Free")?.pagesPerPdf}{" "}
               pages per PDF.
             </p>
             <Link
